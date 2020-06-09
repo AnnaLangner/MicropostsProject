@@ -1,15 +1,10 @@
-// const person = require('./mymodule1');
+import { http } from './http';
+import { ui } from './ui';
 
-import {person} from './mymodule2';
-console.log(person.name);
+document.addEventListener('DOMContentLoaded', getPost);
 
-const greeting = 'Hello World';
-console.log(greeting);
-
-const getData = async (url) => {
-  const response = await fetch(url);
-  const result = await response.json();
-  console.log(result);
-};
-
-getData('https://jsonplaceholder.typicode.com/posts');
+function getPost() {
+  http.get('http://localhost:3000/posts')
+    .then(data => ui.showPosts(data))
+    .catch(err => console.log(err));
+}
